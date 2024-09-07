@@ -13,10 +13,10 @@ export const Auth = () => {
 };
 
 const Login = () => {
-  const [_, setCookies] = useCookies(["access_token"]);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const cookies = useCookies(["access_token"]);
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const Login = () => {
         password,
       });
 
-      setCookies("access_token", result.data.token);
+      cookies.setCookies("access_token", result.data.token);
       window.localStorage.setItem("userID", result.data.userID);
       navigate("/");
     } catch (error) {
@@ -68,9 +68,6 @@ const Login = () => {
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [_, setCookies] = useCookies(["access_token"]);
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
